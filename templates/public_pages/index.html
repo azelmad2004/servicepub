@@ -1,0 +1,260 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!--    meta tags        -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Accueil de ServicePub - 
+Plateforme de numérisation de documents administratifs">
+    <meta name="keywords" content="Accueil, servicepub, présentation, 
+équipe">
+
+    <title>Accueil - ServicePub</title>
+
+    <!--    style links        -->
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+    <!--    nav_section        -->
+       {% include 'partials/nav.html' %}                   
+    <!--    header_section        -->
+    <header class="header headd">
+        <div class="paragraph-header">
+            <h1>Vos Documents Administratifs<br>Enfin Intelligents</h1>
+            <p>Gérez, suivez et recevez vos documents administratifs en toute sécurité<br>avec la plateforme officielle <b>ServicePub</b></p>
+        </div>
+        <div class="header-buttons">
+            {% if not user.is_authenticated %}
+            <button><a href="{% url 'connexion_citoyen' %}">Espace Citoyen</a></button>
+            <button class="btn-admin"><a href="{% url 'connexion_admin' %}">Administration</a></button>
+            {% else %}
+            <button><a href="{% if user.role == 'citoyen' %}{% url 'citoyen_dashboard' %}{% else %}{% url 'admin_dashboard' %}{% endif %}">Accéder à mon espace</a></button>
+            {% endif %}
+        </div>
+    </header>
+    <!--    search_section        -->
+    <div class="search_section">
+        <div class="chiffres_title">
+            Rechercher vos Documents
+            <div class="ligne_main">
+                <div class="ligne"></div>
+            </div>
+        </div>
+        <div class="input_search">
+            <input type="text" placeholder="Recherche">
+        </div>
+        <div class="search-images">
+            <img src="{% static 'images/cadre-1.png' %}" alt="logo-royaume2"> 
+            <img src="{% static 'images/cadre-2.png' %}" alt="logo-royaume2"> 
+            <img src="{% static 'images/cadre-3.png' %}" alt="logo-royaume2"> 
+            <img src="{% static 'images/cadre-4.png' %}" alt="logo-royaume2"> 
+            <img src="{% static 'images/cadre-5.png' %}" alt="logo-royaume2"> 
+
+        </div>
+
+    </div>
+  <!--    work_section        -->
+
+    <div class="work_section">
+        <div class="chiffres_title">
+            Comment ca Marche
+            <div class="ligne_main">
+                <div class="ligne"></div>
+            </div>
+
+
+        </div>
+        <div class="chiffres-block">
+            <div class="ch_b">
+                <div class="icon"><img src="{% static 'images/4696792.png' %}" alt="-royaume2"> 
+                    <br></div>
+                <div class="number">
+                    <p>Créer une demande<br></p>
+                </div>
+
+            </div>
+            <div class="ch_b yellow_btn">
+                <div class="icon"><img src="{% static 'images/6537372.png' %}" alt="#"> 
+                    <br></div>
+                <div class="number">
+                    <p>Payer les frais d'envoi <br></p>
+                </div>
+            </div>
+            <div class="ch_b">
+                <div class="icon"><img src="{% static 'images/4696780.png' %}" alt="#"> 
+                    <br></div>
+                <div class="number">
+                    <p>Suivre la demande<br></p>
+                </div>
+            </div>
+            <div class="ch_b yellow_btn">
+                <div class="icon"><img src="{% static 'images/4696876.png' %}" alt="#"> 
+                    <br></div>
+                <div class="number ">
+                    <p>Recevoir les documents<br></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--    chifres_section        -->
+    <div class="chifres_section">
+        <div class="chiffres_title">
+            ServicePub en chiffres
+            <div class="ligne_main">
+                <div class="ligne"></div>
+            </div>
+        </div>
+        <div class="chiffres-block">
+            <div class="ch_b">
+                <div class="number">
+                    <p>{{ stats.citoyens }}<br></p>
+                </div>
+                <div class="title">
+                    <p>Citoyens conectées</p>
+                </div>
+            </div>
+            <div class="ch_b yellow_btn">
+                <div class="number">
+                    <p>23<br></p>
+                </div>
+                <div class="title">
+                    <p>Administrations conectées</p>
+                </div>
+            </div>
+            <div class="ch_b">
+                <div class="number">
+                    <p>{{ stats.services }}<br></p>
+                </div>
+                <div class="title">
+                    <p>Documents Administratifs</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--    Fonctions_section        -->
+    <div class="Fonctions_section">
+        <div class="chiffres_title">
+            Des Fonctionaliés qui Transforment Votre Expériance
+        </div>
+        <div class="chiffres-block">
+            <div class="ch_b">
+                <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+              </svg>
+                    <br></div>
+                <div class="number">
+                    <p>Informations Sécurisé<br></p>
+                </div>
+                <div class="title">
+                    <p> Inclut plusieurs mécanismes de sécurité intégrés pour protéger l’application web et les données contre les attaques courantes </p>
+                </div>
+            </div>
+            <div class="ch_b yellow_btn">
+                <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-robot" viewBox="0 0 16 16">
+                <path d="M6 12.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5M3 8.062C3 6.76 4.235 5.765 5.53 5.886a26.6 26.6 0 0 0 4.94 0C11.765 5.765 13 6.76 13 8.062v1.157a.93.93 0 0 1-.765.935c-.845.147-2.34.346-4.235.346s-3.39-.2-4.235-.346A.93.93 0 0 1 3 9.219zm4.542-.827a.25.25 0 0 0-.217.068l-.92.9a25 25 0 0 1-1.871-.183.25.25 0 0 0-.068.495c.55.076 1.232.149 2.02.193a.25.25 0 0 0 .189-.071l.754-.736.847 1.71a.25.25 0 0 0 .404.062l.932-.97a25 25 0 0 0 1.922-.188.25.25 0 0 0-.068-.495c-.538.074-1.207.145-1.98.189a.25.25 0 0 0-.166.076l-.754.785-.842-1.7a.25.25 0 0 0-.182-.135"/>
+                <path d="M8.5 1.866a1 1 0 1 0-1 0V3h-2A4.5 4.5 0 0 0 1 7.5V8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2zM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5"/>
+              </svg>
+                    <br></div>
+                <div class="number">
+                    <p>Utilisation de l’IA <br></p>
+                </div>
+                <div class="title">
+                    <p>Administrations conectées</p>
+                </div>
+            </div>
+            <div class="ch_b">
+                <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
+                <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9 9 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.4 10.4 0 0 1-.524 2.318l-.003.011a11 11 0 0 1-.244.637c-.079.186.074.394.273.362a22 22 0 0 0 .693-.125m.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6-3.004 6-7 6a8 8 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a11 11 0 0 0 .398-2"/>
+              </svg>
+                    <br></div>
+                <div class="number">
+                    <p>Réclamations <br></p>
+                </div>
+                <div class="title">
+                    <p>Espace intégrée pour une communication fluide entre le citoyen avec une perssone au sein d’administration pour les réclamations. </p>
+                </div>
+            </div>
+            <div class="ch_b yellow_btn">
+                <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-check-fill" viewBox="0 0 16 16">
+                <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-5.146-5.146-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+              </svg>
+                    <br></div>
+                <div class="number ">
+                    <p>Cohérance <br></p>
+                </div>
+                <div class="title">
+                    <p>La respect de guide de bonnes pratiques d’agence de dévelopement digital (ADD) </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--    testimonials_section        -->
+    <div class="testimonials_section">
+        <div class="chiffres_title">
+            Ce que disent Nos Utilisateurs
+            <div class="ligne_main">
+                <div class="ligne"></div>
+            </div>
+            <br>
+        </div>
+        <div class="ch_b">
+            <div class="title">
+                <p>" C'est une meilleure expériance que je vivre ,tout les documents que j'ai besoin sont disponibles "</p>
+            </div>
+            <div class="testimonial">
+                <img src="{% static 'images/2.png' %}" alt="testimonial"> 
+                <h2>Mohamed azelDH <br>
+                    <p>Citoyen</p>
+                </h2>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!--    join_section        -->
+    <div class="join2_section">
+        <div class="chiffres_title">
+            Rejoindre ServicePub - Gratuit <br>
+        </div>
+        <p> Aucune carte de crédit requise, Annuler a tout moment</p>
+        <div class="header-buttons">
+            <button><a href="{% url 'inscription_citoyen' %}">Commencer maintenant</a></button>
+        </div>
+
+
+    </div>
+    <!--    chatbot section extracted to partials/chatbot.html        -->
+    
+    </div>
+
+
+      <!--    chatboot section         -->  
+    
+    
+    
+    <!--    footer_section        -->
+       {% include 'partials/footer.html' %} 
+       {% include 'partials/chatbot.html' %} 
+
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

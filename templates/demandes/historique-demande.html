@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails Demande #{{ demande.reference }} - ServicePub</title>
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="dashboard">
+    {% include 'partials/nav-citoyen.html' %}
+
+    <main class="dashboard-content">
+        <header class="dashboard-header" style="margin-bottom: 30px; display: flex; justify-content: space-between; align-items: flex-end;">
+            <div class="header-left">
+                <h1 style="margin: 0; font-size: 1.8rem; color: #1f2937;">Détails de la Demande</h1>
+                <p style="margin: 5px 0 0 0; color: #6b7280;">Référence #{{ demande.reference }} - {{ demande.service.nom }}</p>
+            </div>
+            <div class="header-right">
+                <a href="{% url 'liste_demandes' %}" class="btn btn-secondary" style="padding: 10px 20px; text-decoration: none; border-radius: 12px; border: 1px solid #ddd; color: #4b5563; font-weight: 600;">
+                   Retour à la liste
+                </a>
+            </div>
+        </header>
+
+        <div class="historique-container" style="display: grid; grid-template-columns: 1fr 350px; gap: 30px;">
+            <!-- Timeline détaillée -->
+            <div class="timeline-section" style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <h3 style="margin-top: 0; border-bottom: 2px solid #edf2f7; padding-bottom: 15px; margin-bottom: 25px;">Évolution de votre demande</h3>
+                
+                <div class="timeline-detailed" style="position: relative; padding-left: 30px; border-left: 2px solid #edf2f7;">
+                    
+                    <div class="timeline-item major" style="margin-bottom: 30px; position: relative;">
+                        <div class="timeline-marker success" style="position: absolute; left: -39px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: #10b981; border: 4px solid #fff; box-shadow: 0 0 0 2px #10b981;"></div>
+                        <div class="timeline-content">
+                            <h4 style="margin: 0; color: #1f2937;">Demande créée</h4>
+                            <p style="margin: 5px 0; color: #6b7280;">Le citoyen a soumis le formulaire initial.</p>
+                            <div class="timeline-details" style="font-size: 0.85rem; color: #9ca3af;">
+                                <span>Par: {{ demande.citoyen.user.get_full_name }}</span>
+                                <span style="margin-left: 15px;">{{ demande.date_creation|date:'d/m/Y H:i' }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if demande.statut != 'en_attente' %}
+                    <div class="timeline-item" style="margin-bottom: 30px; position: relative;">
+                        <div class="timeline-marker" style="position: absolute; left: -39px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: #2a61c1; border: 4px solid #fff; box-shadow: 0 0 0 2px #2a61c1;"></div>
+                        <div class="timeline-content">
+                            <h4 style="margin: 0; color: #1f2937;">Prise en charge</h4>
+                            <p style="margin: 5px 0; color: #6b7280;">La demande a été prise en charge par nos services.</p>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="timeline-item current" style="margin-bottom: 30px; position: relative;">
+                        <div class="timeline-marker" style="position: absolute; left: -39px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: #f59e0b; border: 4px solid #fff; box-shadow: 0 0 0 2px #f59e0b;"></div>
+                        <div class="timeline-content">
+                            <h4 style="margin: 0; color: #1f2937;">État Actuel: {{ demande.get_statut_display }}</h4>
+                            <p style="margin: 5px 0; color: #6b7280;">Dernière mise à jour effectuée.</p>
+                        </div>
+                    </div>
+
+                    {% if demande.statut == 'traitee' or demande.statut == 'livree' %}
+                    <div class="timeline-item major" style="position: relative;">
+                        <div class="timeline-marker success" style="position: absolute; left: -39px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: #10b981; border: 4px solid #fff; box-shadow: 0 0 0 2px #10b981;"></div>
+                        <div class="timeline-content">
+                            <h4 style="margin: 0; color: #1f2937;">Traitement Terminé</h4>
+                            <p style="margin: 5px 0; color: #6b7280;">Le document est prêt ou a été livré.</p>
+                            {% if demande.date_traitement %}
+                            <div class="timeline-details" style="font-size: 0.85rem; color: #9ca3af;">
+                                <span>{{ demande.date_traitement|date:'d/m/Y H:i' }}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Statistiques de traitement -->
+            <div class="stats-sidebar">
+                <div class="info-card" style="background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px;">
+                    <h4 style="margin-top: 0; color: #1f2937; border-bottom: 1px solid #edf2f7; padding-bottom: 10px; margin-bottom: 15px;">Résumé</h4>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; font-size: 0.85rem; color: #6b7280; margin-bottom: 5px;">Statut</label>
+                        <span class="status-badge {{ demande.statut }}" style="padding: 5px 12px; border-radius: 12px; font-size: 0.9rem;">{{ demande.get_statut_display }}</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; font-size: 0.85rem; color: #6b7280; margin-bottom: 5px;">Tarif</label>
+                        <span style="font-weight: 600; color: #1f2937;">{{ demande.service.tarif }} DH</span>
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.85rem; color: #6b7280; margin-bottom: 5px;">Date d'échéance prévue</label>
+                        <span style="font-weight: 600; color: #1f2937;">{{ demande.date_echeance|date:'d/m/Y'|default:"En attente" }}</span>
+                    </div>
+                </div>
+
+                <div class="action-card" style="background: #2a61c1; border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px rgba(42, 97, 193, 0.2); color: white;">
+                    <h4 style="margin-top: 0; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px; margin-bottom: 15px;">Actions</h4>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <button onclick="window.print()" class="btn btn-secondary" style="background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 10px; border-radius: 12px; cursor: pointer; width: 100%;">
+                            <i class="fas fa-print"></i> Imprimer le reçu
+                        </button>
+                        {% if demande.statut == 'traitee' or demande.statut == 'livree' %}
+                            {% for doc in demande.documents.all %}
+                                {% if doc.type_doc == 'officiel' %}
+                                <a href="{{ doc.fichier.url }}" download class="btn btn-primary" style="display: inline-block; text-align: center; background: white; color: #2a61c1; border: none; padding: 10px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 600; text-decoration: none; box-sizing: border-box; margin-top: 10px;">
+                                    Télécharger le document final
+                                </a>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {% include 'partials/footer.html' %}
+</body>
+</html>

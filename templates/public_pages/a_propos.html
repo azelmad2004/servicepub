@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial
+scale=1.0">
+    <meta name="description" content="À propos de ServicePub - 
+Plateforme de numérisation de documents administratifs">
+    <meta name="keywords" content="à propos, servicepub, présentation, 
+équipe">
+
+    <title>À Propos - ServicePub</title>
+
+        <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+    <!--    nav_section        -->
+       {% include 'partials/nav.html' %}                   
+    <header class="header">
+        <div class="header-content">
+            <div class="paragraph-header">
+                <h1>À Propos de ServicePub</h1>
+                <div class="ligne_main">
+                    <div class="ligne"></div>
+                </div>
+                <p>Découvrez notre mission, notre vision et notre équipe dédiée</p>
+            </div>
+        </div>
+    </header>
+    <div class="about_section">
+
+        <div class="about-content">
+            <div class="about-block">
+                <h2>Notre Mission</h2>
+                <p>ServicePub a été créé dans le but de simplifier les démarches administratives pour les citoyens marocains. Notre mission est de digitaliser et de sécuriser les processus administratifs, en offrant une plateforme intuitive et fiable pour
+                    la gestion des documents officiels.</p>
+                <p>Nous croyons que chaque citoyen mérite un accès simple et rapide aux services administratifs, sans paperasse inutile ni déplacements multiples.</p>
+            </div>
+            <div class="about-block color_dif">
+                <h2>Notre Vision</h2>
+                <p>Notre vision est de devenir la plateforme de référence pour la dématérialisation des démarches administratives au Maroc, en contribuant à la modernisation de l'administration et à la réduction de l'empreinte écologique.</p>
+                <p>Nous aspirons à créer un écosystème numérique où citoyens et administrations peuvent interagir de manière fluide, sécurisée et efficiente.</p>
+            </div>
+            <div class="about-block">
+                <h2>Nos Valeurs</h2>
+                <div class="values-container">
+                    <div class="value-item">
+                        <div class="value-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Sécurité</h3>
+                        <p>Protection maximale des données et documents confidentiels
+                        </p>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Innovation</h3>
+                        <p>Solutions technologiques avancées pour simplifier les processus</p>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Accessibilité</h3>
+                        <p>Service disponible pour tous, partout et à tout moment personnalisé</p>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-icon">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <h3>Service Client</h3>
+                        <p>Support réactif et accompagnement
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-block color_dif">
+                <h2>Partenariats</h2>
+                <p>ServicePub travaille en étroite collaboration avec plusieurs administrations publiques marocaines pour assurer la conformité et l'interopérabilité de notre plateforme avec les systèmes existants.
+                </p>
+                <p>Nous sommes fiers de contribuer à la modernisation de l'administration marocaine et à la simplification des démarches pour nos concitoyens.</p>
+            </div>
+        </div>
+    </div>
+    <!--    footer_section        -->
+       {% include 'partials/footer.html' %} 
+       {% include 'partials/chatbot.html' %} 
+
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Agents - Admin</title>
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    {% include 'partials/nav-admin.html' %}
+    <main class="admin-content">
+            <div class="header-left">
+                <h1>Gestion des Agents</h1>
+                <p>48 agents actifs - 12 spécialités</p>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-primary" 
+onclick="openModal('add-agent-modal')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                  </svg> Nouvel Agent
+                </button>
+            </div>
+        </header>
+        <div class="gestion-agents-container">
+            <!-- Filtres et recherche -->
+            <div class="filters-section">
+                <div class="search-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+</svg>
+                    <input type="text" placeholder="Rechercher un agent...">
+                </div>
+                <div class="filter-group">
+                    <select class="filter-select">
+                        <option>Tous les services</option>
+                        <option>État Civil</option>
+                        <option>Acte de naissance</option>
+                        <option>CNI</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>Tous les statuts</option>
+                        <option>Actif</option>
+                        <option>Inactif</option>
+                        <option>En pause</option>
+                    </select>
+                </div>
+            </div>
+            <!-- Liste des agents -->
+            <div class="agents-grid">
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <img src="{% static 'images/' %}agent1.jpg" 
+alt="Agent">
+                        <div class="agent-status">
+                            <span class="status-indicator online">
+ </span>
+                            <span>En ligne</span>
+                        </div>
+                    </div>
+                    <div class="agent-body">
+                        <h4>Mohamed Ali</h4>
+                        <p class="agent-specialty">Spécialité: 
+Acte de naissance</p>
+                        <p class="agent-email">mohamed.ali@servicepub.ma</p>
+                        <div class="agent-stats">
+                            <div class="stat">
+                                <span class="number">12</span>
+                                <span class="label">En cours</span>
+                            </div>
+                            <div class="stat">
+                                <span class="number">89%</span>
+                                <span class="label">Taux succès</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agent-actions">
+                        <button class="btn-icon" title="Voir profil">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+</svg>
+                        </button>
+                        <button class="btn-icon" title="Modifier">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-icon" title="Désactiver">
+                            <i class="fas fa-ban"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- Plus d'agents... -->
+            </div>
+            <!-- Statistiques -->
+            <div class="agents-stats">
+                <div class="stat-card">
+                    <h4>Agents par service</h4>
+                    <div class="stats-chart">
+                        <div class="chart-item">
+                            <span>État Civil</span>
+                            <div class="chart-bar">
+                                <div class="chart-fill" style="width: 
+40%"></div>
+                            </div>
+                            <span>12 agents</span>
+                        </div>
+                        <div class="chart-item">
+                            <span>Acte de naissance</span>
+                            <div class="chart-bar">
+                                <div class="chart-fill" style="width: 
+30%"></div>
+                            </div>
+                            <span>8 agents</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Ajout Agent -->
+        <div id="add-agent-modal" class="modal">
+            <div class="modal-content large">
+                <h3>Ajouter un Nouvel Agent</h3>
+                <form class="agent-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nom complet *</label>
+                            <input type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Spécialité *</label>
+                            <select required>
+                                <option>État Civil</option>
+                                <option>Acte de naissance</option>
+                                <option>CNI</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Niveau d'accès *</label>
+                            <select required>
+                                <option>Agent</option>
+                                <option>Superviseur</option>
+                                <option>Administrateur</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" 
+onclick="closeModal('add-agent-modal')">
+                            Annuler
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Créer l'agent
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% include 'partials/footer.html' %}
+    <script>
+        function openModal(id) {
+            document.getElementById(id).style.display = 'block';
+        }
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+    </script>
+</body>
+</html>

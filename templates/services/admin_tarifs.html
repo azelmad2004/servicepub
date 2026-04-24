@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Tarifs - Admin</title>
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    {% include 'partials/nav-admin.html' %}
+    <main class="admin-content">
+        <header class="admin-header">
+            <div class="header-left">
+                <h1>Gestion des Tarifs Administratifs</h1>
+                <p>Tarifs en vigueur à partir du 01/01/2024</p>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-primary" 
+onclick="openModal('update-tarifs-modal')">
+                    <i class="fas fa-sync-alt"></i> Mettre à jour
+                </button>
+            </div>
+        </header>
+        <div class="gestion-tarifs-container">
+            <!-- Tableau des tarifs -->
+            <div class="tarifs-table-container">
+                <table class="tarifs-table">
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Catégorie</th>
+                            <th>Tarif Actuel</th>
+                            <th>Ancien Tarif</th>
+                            <th>Variation</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Extrait d'acte de naissance</td>
+                            <td>État Civil</td>
+                            <td class="tarif-actuel">10 DH</td>
+                            <td class="tarif-ancien">30 DH</td>
+                            <td class="variation up">+66.7%</td>
+                            <td><span class="status-badge active">Actif</span></td>
+                            <td>
+                                <button class="btn-icon" 
+title="Modifier">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Acte de naissance ordinaire</td>
+                            <td>Documents</td>
+                            <td class="tarif-actuel">300 DH</td>
+                            <td class="tarif-ancien">210 DH</td>
+                            <td class="variation up">+20%</td>
+                            <td><span class="status-badge active">Actif</span></td>
+                            <td>
+                                <button class="btn-icon" 
+title="Modifier">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Plus de tarifs... -->
+                    </tbody>
+                </table>
+            </div>
+            <!-- Statistiques tarifaires -->
+            <div class="tarifs-stats">
+                <div class="stat-card">
+                    <h4>Moyenne des tarifs</h4>
+                    <div class="stat-value">125 DH</div>
+                    <div class="stat-label">Par service</div>
+                </div>
+                <div class="stat-card">
+                    <h4>Évolution globale</h4>
+                    <div class="stat-value up">+15.2%</div>
+                    <div class="stat-label">Depuis 2023</div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Mise à jour -->
+        <div id="update-tarifs-modal" class="modal">
+            <div class="modal-content large">
+                <h3>Mise à jour des Tarifs</h3>
+                <form class="tarifs-form">
+                    <div class="form-group">
+                        <label>Date d'effet *</label>
+                        <input type="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Justification de la mise à jour</label>
+                        <textarea rows="3" placeholder="Raison de la modification des tarifs..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" 
+onclick="closeModal('update-tarifs-modal')">
+                            Annuler
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+  <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+</svg> Appliquer les 
+modifications
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    {% include 'partials/footer.html' %}
+    <script>
+        function openModal(id) {
+            document.getElementById(id).style.display = 'block';
+        }
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+    </script>
+</body>
+</html>

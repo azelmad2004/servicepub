@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!--    meta tags        -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta name="keywords" content="">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--    style links        -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+    <!--    nav_section        -->
+    {% include 'partials/nav.html' %}
+    <!--    header_section        -->
+
+    <div class="header">
+        <div class="paragraph-header">
+            <h1>Contact</h1>
+            <div class="ligne_main">
+                <div class="ligne"></div>
+            </div>
+            <p>Informations sur l'utilisation des cookies sur la plateforme ServicePub</p>
+        </div>
+    </div>
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <h2>Contactez-nous</h2>
+                <p>Envoyez-nous un message</p>
+            </div>
+
+            <form class="auth-form active" id="citoyen-form">
+                <div class="form-group">
+                    <label for="email-citoyen">Email</label>
+                    <input type="email" id="email-citoyen" required placeholder="votre@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="message-citoyen">Message</label>
+                    <textarea id="message-citoyen" required placeholder="Votre message" style="width: 100%; padding: 10px; border-radius: 12px; border: 1px solid #ddd;"></textarea>
+                </div>
+                
+                <button type="submit" class="auth-btn">Envoyer</button>
+            </form>
+
+        </div>
+    </div>
+    
+
+       {% include 'partials/footer.html' %} 
+       {% include 'partials/chatbot.html' %} 
+
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

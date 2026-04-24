@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tableau de bord Citoyen - ServicePub">
+    <meta name="keywords" content="dashboard, citoyen, servicepub, documents administratifs">
+
+    <title>Réclamations - ServicePub</title>
+
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body class="dashboard">
+    <!--    nav_section  citoyen       -->
+    {% include 'partials/nav-citoyen.html' %}
+
+    <!-- Main Content -->
+    <main class="dashboard-content">
+        <div class="dashboard-header">
+            <h1>Mes Réclamations</h1>
+            <p>Gestion de vos réclamations et suggestions</p>
+        </div>
+
+        <div class="reclamations-container">
+            {% if reclamation %}
+            <!-- Détails d'une réclamation spécifique -->
+            <div class="reclamation-detail-view" style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px;">
+                <div class="detail-header" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; border-bottom: 2px solid #f1f5f9; padding-bottom: 20px;">
+                    <div>
+                        <h2 style="margin: 0; color: #1e293b;">{{ reclamation.sujet }}</h2>
+                        <p style="margin: 5px 0 0 0; color: #64748b;">Ticket #{{ reclamation.numero_ticket }} — Créé le {{ reclamation.date_creation|date:'d/m/Y' }}</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="status-badge {{ reclamation.statut }}" style="display: inline-block; margin-bottom: 10px;">{{ reclamation.get_statut_display }}</span>
+                        <a href="{% url 'liste_reclamations_citoyen' %}" style="display: block; color: #2a61c1; text-decoration: none; font-size: 0.9rem; font-weight: 600;">&larr; Retour à la liste</a>
+                    </div>
+                </div>
+
+                <div class="detail-description">
+                    <h4>Description initiale</h4>
+                    <p>{{ reclamation.description }}</p>
+                    {% if reclamation.piece_jointe %}
+                    <div class="attachment">
+                        <a href="{{ reclamation.piece_jointe.url }}" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0z"/></svg>
+                            Voir la pièce jointe
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="messages-thread">
+                    <h3>Discussion</h3>
+                    <div class="messages-list">
+                        {% for msg in messages_list %}
+                        <div class="message-item {% if msg.auteur == request.user %}self{% endif %}">
+                            <div class="message-content">
+                                <p>{{ msg.contenu }}</p>
+                                {% if msg.fichier_joint %}
+                                <div class="attachment">
+                                    <a href="{{ msg.fichier_joint.url }}" target="_blank">[ Fichier joint ]</a>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="message-meta">
+                                {{ msg.auteur.get_full_name }} — {{ msg.date_envoi|timesince }}
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p class="empty-state">Aucun message pour le moment. L'administration traite votre demande.</p>
+                        {% endfor %}
+                    </div>
+
+                    {% if reclamation.statut != 'resolue' %}
+                    <form method="POST" enctype="multipart/form-data" class="reply-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label>Répondre</label>
+                            {{ message_form.contenu }}
+                        </div>
+                        <div class="form-actions">
+                            {{ message_form.piece_jointe }}
+                            <button type="submit" class="btn btn-primary">Envoyer le message</button>
+                        </div>
+                    </form>
+                    {% else %}
+                    <div style="text-align: center; padding: 20px; background: #dcfce7; color: #166534; border-radius: 12px; font-weight: 600;">
+                        Cette réclamation a été marquée comme résolue. Discussion fermée.
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% else %}
+            <!-- Liste globale des réclamations -->
+            <div class="new-reclamation-card" style="background: #2a61c1; color: white; border-radius: 12px; padding: 30px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h3 style="margin: 0; font-size: 1.4rem;">Un problème ? Une suggestion ?</h3>
+                    <p style="margin: 5px 0 0 0; opacity: 0.9;">Nous sommes à votre écoute pour améliorer nos services.</p>
+                </div>
+                <button class="btn" style="background: white; color: #2a61c1; border: none; padding: 12px 25px; border-radius: 12px; font-weight: 700; cursor: pointer;" onclick="openModal('new-reclamation-modal')">
+                    Ouvrir un ticket
+                </button>
+            </div>
+
+            <div class="reclamations-list">
+                {% for rec in reclamations %}
+                <div class="reclamation-card {{ rec.statut }}">
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3>{{ rec.sujet }}</h3>
+                            <span class="status-badge {{ rec.statut }}">{{ rec.get_statut_display }}</span>
+                        </div>
+                        <p class="ticket-meta">Ticket #{{ rec.numero_ticket }} — {{ rec.date_creation|date:'d/m/Y' }}</p>
+                    </div>
+                    <a href="{% url 'detail_reclamation' rec.id %}" class="btn btn-secondary">
+                        Détails
+                    </a>
+                </div>
+                {% empty %}
+                <div class="empty-state">
+                    <p>Vous n'avez soumis aucune réclamation pour le moment.</p>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Modal nouvelle réclamation -->
+        <div id="new-reclamation-modal" class="modal" {% if show_modal %}style="display:block;"{% endif %}>
+            <div class="modal-content" style="max-width: 600px; background: white; margin: 50px auto; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);">
+                <div class="modal-header" style="background: #2a61c1; color: white; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <h2 style="margin: 0; font-size: 1.25rem;">Soumettre une réclamation</h2>
+                    <span class="close" onclick="closeModal('new-reclamation-modal')" style="cursor: pointer; font-size: 1.5rem; line-height: 1;">&times;</span>
+                </div>
+                <form class="reclamation-form" method="POST" action="{% url 'nouvelle_reclamation' %}" enctype="multipart/form-data" style="padding: 30px;">
+                    {% csrf_token %}
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #4b5563;">Sujet *</label>
+                        {{ reclamation_form.sujet }}
+                    </div>
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #4b5563;">Catégorie *</label>
+                        {{ reclamation_form.categorie }}
+                    </div>
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #4b5563;">Description *</label>
+                        {{ reclamation_form.description }}
+                    </div>
+                    <div class="form-group" style="margin-bottom: 25px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #4b5563;">Pièce jointe</label>
+                        {{ reclamation_form.piece_jointe }}
+                    </div>
+                    <div class="form-actions" style="display: flex; gap: 15px; margin-top: 10px;">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('new-reclamation-modal')" style="flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #ddd; cursor: pointer;">
+                            Annuler
+                        </button>
+                        <button type="submit" class="btn btn-primary" style="flex: 2; padding: 12px; background: #2a61c1; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer;">
+                            Envoyer le ticket
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!--    footer_section        -->
+    {% include 'partials/footer.html' %}
+
+    <script>
+        function openModal(id) {
+            document.getElementById(id).style.display = 'block';
+        }
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+</html>

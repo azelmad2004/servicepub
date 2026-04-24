@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mot de passe oublié - ServicePub</title>
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body class="dashboard">
+    {% include 'partials/nav.html' %}                   
+
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <h2>Réinitialisation</h2>
+                <p>Saisissez votre email</p>
+            </div>
+
+            {% if messages %}
+            <div style="margin-bottom: 20px;">
+                {% for message in messages %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <form method="POST" class="auth-form active">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="form-group">
+                    <label>{{ field.label }}</label>
+                    {{ field }}
+                    {% for error in field.errors %}
+                    <p style="color: red; font-size: 0.8em;">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+
+                <button type="submit" class="auth-btn">Envoyer le lien</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Vous vous souvenez de votre mot de passe ? <a href="{% url 'connexion_citoyen' %}">Se connecter</a></p>
+            </div>
+        </div>
+    </div>
+
+    {% include 'partials/footer.html' %} 
+</body>
+</html>

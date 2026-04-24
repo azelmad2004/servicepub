@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial
+scale=1.0">
+    <meta name="description" content="Conditions Générales 
+d'Utilisation de ServicePub">
+    <meta name="keywords" content="CGU, conditions d'utilisation, 
+servicepub, documents administratifs">
+
+    <title>Conditions d'Utilisation - ServicePub</title>
+
+        <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+    <!--    nav_section        -->
+       {% include 'partials/nav.html' %}                   
+    <header class="header">
+        <div class="header-content">
+            <div class="paragraph-header">
+                <h1>Conditions Générales d'Utilisation</h1>
+                <div class="ligne_main">
+                    <div class="ligne"></div>
+                </div>
+                <p>Prenez connaissance des conditions régissant l'utilisation de la plateforme ServicePub</p>
+            </div>
+        </div>
+    </header>
+    <div class="legal_section">
+
+        <div class="legal-content">
+            <div class="legal-block">
+                <h2>Article 1 : Objet</h2>
+                <p>Les présentes conditions générales d'utilisation (CGU) ont pour objet de définir les conditions et modalités d'utilisation de la plateforme ServicePub, ainsi que de fixer les droits et obligations des parties dans ce cadre.</p>
+            </div>
+            <div class="legal-block color_dif">
+                <h2>Article 2 : Définitions</h2>
+                <p>Dans les présentes CGU, les termes suivants ont la signification indiquée ci-dessous :</p>
+                <ul>
+                    <li><strong>Plateforme</strong> : Désigne le site web ServicePub et l'ensemble de ses fonctionnalités.</li>
+                    <li><strong>Utilisateur</strong> : Toute personne physique ou morale utilisant la Plateforme.</li>
+                    <li><strong>Compte</strong> : Espace personnel de l'Utilisateur accessible grâce à des identifiants.</li>
+                    <li><strong>Contenu</strong> : Ensemble des données, informations et documents transmis par l'Utilisateur.</li>
+                </ul>
+            </div>
+            <div class="legal-block">
+                <h2>Article 3 : Acceptation des CGU</h2>
+                <p>L'utilisation de la Plateforme implique l'acceptation sans réserve des présentes CGU. Cette acceptation est matérialisée par une case à cocher lors de la création du compte.</p>
+            </div>
+            <div class="legal-block color_dif">
+                <h2>Article 4 : Accès à la Plateforme</h2>
+                <p>L'accès à la Plateforme est réservé aux personnes ayant au moins 18 ans et disposant de la capacité juridique de souscrire aux présentes CGU. L'Utilisateur garantit que toutes les informations fournies lors de son inscription sont exactes,
+                    à jour et sincères.
+                </p>
+            </div>
+            <div class="legal-block">
+                <h2>Article 5 : Description des services</h2>
+                <p>ServicePub propose aux Utilisateurs les services suivants :</p>
+                <ul>
+                    <li>Numérisation de documents administratifs</li>
+                    <li>Stockage sécurisé de documents</li>
+                    <li>Gestion et suivi des demandes administratives
+                    </li>
+                    <li>Transmission électronique de documents aux administrations
+                    </li>
+                </ul>
+            </div>
+            <div class="legal-block color_dif">
+                <h2>Article 6 : Obligations de l'Utilisateur</h2>
+                <p>L'Utilisateur s'engage à :</p>
+                <ul>
+                    <li>Utiliser la Plateforme conformément à sa destination
+                    </li>
+                    <li>Ne pas perturber le fonctionnement de la Plateforme
+                    </li>
+                    <li>Ne pas tenter d'accéder à des espaces réservés
+                    </li>
+                    <li>Ne pas utiliser la Plateforme à des fins illégales ou frauduleuses</li>
+                    <li>Maintenir la confidentialité de ses identifiants de connexion</li>
+                </ul>
+            </div>
+            <div class="legal-block">
+                <h2>Article 7 : Propriété intellectuelle</h2>
+                <p>La Plateforme, son contenu et tous les éléments qui la composent (textes, images, logos, etc.) sont protégés par le droit de la propriété intellectuelle. Toute reproduction ou représentation non autorisée est interdite.</p>
+            </div>
+            <div class="legal-block color_dif">
+                <h2>Article 8 : Responsabilité</h2>
+                <p>ServicePub ne peut être tenu responsable des dommages résultant :</p>
+                <ul>
+                    <li>De l'utilisation inadéquate de la Plateforme
+                    </li>
+                    <li>De l'indisponibilité temporaire ou définitive de la Plateforme</li>
+                    <li>De la transmission de documents erronés ou incomplets par l'Utilisateur</li>
+                    <li>Du non-respect par l'Utilisateur des présentes CGU
+                    </li>
+                </ul>
+            </div>
+            <div class="legal-block">
+                <h2>Article 9 : Modification des CGU</h2>
+                <p>ServicePub se réserve le droit de modifier à tout moment les présentes CGU. Les modifications prendront effet dès leur publication sur la Plateforme.</p>
+            </div>
+            <div class="legal-block color_dif">
+                <h2>Article 10 : Loi applicable et juridiction compétente
+                </h2>
+                <p>Les présentes CGU sont régies par la loi marocaine. En cas de litige, les tribunaux marocains seront seuls compétents.</p>
+            </div>
+        </div>
+    </div>
+    <!--    footer_section        -->
+       {% include 'partials/footer.html' %} 
+       {% include 'partials/chatbot.html' %} 
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traitement Demande #{{ demande.reference }} - Agent</title>
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="dashboard">
+    {% include 'partials/nav-admin.html' %}                   
+
+    <main class="dashboard-content">
+        <header class="dashboard-header" style="margin-bottom: 30px; display: flex; justify-content: space-between; align-items: flex-end;">
+            <div class="header-left">
+                <h1 style="margin: 0; font-size: 1.8rem; color: #1f2937;">Traitement de la Demande #{{ demande.reference }}</h1>
+                <p style="margin: 5px 0 0 0; color: #6b7280;">{{ demande.service.nom }} - {{ demande.citoyen.user.get_full_name }}</p>
+            </div>
+            <div class="header-right">
+                <a href="{% url 'admin_demandes' %}" class="btn btn-secondary" style="padding: 10px 20px; text-decoration: none; border-radius: 12px; border: 1px solid #ddd; color: #4b5563; font-weight: 600;">
+                   Retour
+                </a>
+            </div>
+        </header>
+
+        <div class="traitement-container" style="display: grid; grid-template-columns: 1fr 400px; gap: 30px;">
+            <div class="main-column">
+                <form method="POST" enctype="multipart/form-data" style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    {% csrf_token %}
+                    
+                    <div class="form-section" style="margin-bottom: 30px;">
+                        <h3 style="margin-top: 0; border-bottom: 2px solid #edf2f7; padding-bottom: 10px; margin-bottom: 20px;">Mise à jour du Statut</h3>
+                        <div class="form-group">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600;">Nouveau Statut</label>
+                            <select name="statut" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 12px;">
+                                {% for code, label in statuts %}
+                                <option value="{{ code }}" {% if demande.statut == code %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-section" style="margin-bottom: 30px;">
+                        <h3 style="margin-top: 0; border-bottom: 2px solid #edf2f7; padding-bottom: 10px; margin-bottom: 20px;">Notes de l'Agent</h3>
+                        <textarea name="notes_agent" rows="5" placeholder="Saisissez vos observations ici..." style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 12px; resize: none;">{{ demande.notes_agent }}</textarea>
+                    </div>
+
+                    <div class="form-section" style="margin-bottom: 30px;">
+                        <h3 style="margin-top: 0; border-bottom: 2px solid #edf2f7; padding-bottom: 10px; margin-bottom: 20px;">Document Final (Si terminé)</h3>
+                        <input type="file" name="document_officiel" style="width: 100%; padding: 10px; border: 1px dashed #2a61c1; border-radius: 12px; background: #f0f7ff;">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px; background: #2a61c1; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; font-size: 1.1rem;">
+                        Sauvegarder et Mettre à jour
+                    </button>
+                </form>
+            </div>
+
+            <div class="sidebar">
+                <div class="info-card" style="background: #f8fafc; border-radius: 12px; padding: 25px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
+                    <h4 style="margin-top: 0; color: #1e293b; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 15px;">Infos Citoyen</h4>
+                    <p><strong>Nom:</strong> {{ demande.citoyen.user.get_full_name }}</p>
+                    <p><strong>CINE:</strong> {{ demande.citoyen.CINE }}</p>
+                    <p><strong>Téléphone:</strong> {{ demande.citoyen.user.telephone }}</p>
+                </div>
+
+                <div class="docs-card" style="background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <h4 style="margin-top: 0; color: #1e293b; border-bottom: 1px solid #edf2f7; padding-bottom: 10px; margin-bottom: 15px;">Documents fournis</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        {% for doc in demande.documents.all %}
+                        <li style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 0.9rem;">{{ doc.titre }}</span>
+                            <a href="{{ doc.fichier.url }}" target="_blank" style="color: #2a61c1; text-decoration: none;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/><path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/></svg></a>
+                        </li>
+                        {% empty %}
+                        <li style="color: #64748b; font-style: italic;">Aucun document soumis.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {% include 'partials/footer.html' %}
+</body>
+</html>

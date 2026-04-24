@@ -1,0 +1,33 @@
+{% load static %}
+
+<nav>
+    <div class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="logo"> 
+    </div>
+    <div class="nav-list">
+        <ul>
+            <li><a class="" href="{% url 'index' %}">Accueil</a></li>
+            <li><a class="" href="{% url 'fonctionnalites' %}">Fonctionnalités</a></li>
+            <li><a class="" href="{% url 'statistiques' %}">Statistiques</a></li>
+            <li><a class="" href="{% url 'contact' %}">Contact</a></li>
+            {% if user.is_authenticated %}
+                {% if user.role == 'citoyen' %}
+                    <li><a href="{% url 'citoyen_dashboard' %}" style="color: #2a61c1; font-weight: bold;">Mon Dashboard</a></li>
+                {% else %}
+                    <li><a href="{% url 'admin_dashboard' %}" style="color: #2a61c1; font-weight: bold;">Espace Agent</a></li>
+                {% endif %}
+                <li><a class="btn" href="{% url 'deconnexion' %}" style="background: #ef4444; border-color: #ef4444;">Déconnexion</a></li>
+            {% else %}
+                <li><a class="" href="{% url 'connexion_citoyen' %}">Se connecter</a></li>
+                <li><a class="btn" href="{% url 'inscription_citoyen' %}">S'Inscrire</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="list"> <button><a href=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+      </svg></a></button>
+    </div>
+    <div class="logo_ro">
+        <img src="{% static 'images/logo-royaume2.png' %}" alt="logo-royaume2"> 
+    </div>
+</nav>

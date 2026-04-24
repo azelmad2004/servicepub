@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demande de {{ service.nom }} - ServicePub</title>
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="dashboard">
+    {% include 'partials/nav-citoyen.html' %}                   
+    <main class="dashboard-content">
+        <div class="dashboard-header" style="margin-bottom: 30px;">
+            <h1 style="color: #1e293b;">Demande de : {{ service.nom }}</h1>
+            <p style="color: #64748b;">{{ service.description }}</p>
+        </div>
+
+        <div class="request-form-container" style="max-width: 900px; margin: 0 auto;">
+            <div class="form-steps" style="display: flex; justify-content: space-between; margin-bottom: 40px; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <div class="step active" style="text-align: center; flex: 1;">
+                    <span class="step-number" style="background: #2a61c1; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 5px;">1</span>
+                    <span class="step-label" style="display: block; font-size: 0.8rem; font-weight: 600; color: #2a61c1;">Informations</span>
+                </div>
+                <div class="step" style="text-align: center; flex: 1; opacity: 0.5;">
+                    <span class="step-number" style="background: #e2e8f0; color: #64748b; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 5px;">2</span>
+                    <span class="step-label" style="display: block; font-size: 0.8rem;">Documents</span>
+                </div>
+                <div class="step" style="text-align: center; flex: 1; opacity: 0.5;">
+                    <span class="step-number" style="background: #e2e8f0; color: #64748b; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 5px;">3</span>
+                    <span class="step-label" style="display: block; font-size: 0.8rem;">Paiement</span>
+                </div>
+            </div>
+
+            <form method="POST" style="background: white; border-radius: 12px; padding: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                {% csrf_token %}
+                <div class="form-section">
+                    <h3 style="margin-top: 0; border-bottom: 2px solid #edf2f7; padding-bottom: 10px; margin-bottom: 30px; color: #1e293b;">
+                        Formulaire de Demande
+                    </h3>
+                    
+                    <div class="django-form-fields" style="display: grid; gap: 20px;">
+                        {% for field in form %}
+                        <div class="form-group">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #4b5563;">{{ field.label }} {% if field.field.required %}<span style="color: #ef4444;">*</span>{% endif %}</label>
+                            {{ field }}
+                            {% if field.help_text %}
+                            <small style="display: block; color: #64748b; margin-top: 5px;">{{ field.help_text }}</small>
+                            {% endif %}
+                            {% for error in field.errors %}
+                            <p style="color: #ef4444; font-size: 0.85rem; margin-top: 5px;">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="form-actions" style="margin-top: 40px; display: flex; gap: 15px; justify-content: flex-end; border-top: 2px solid #edf2f7; padding-top: 25px;">
+                    <a href="{% url 'nouvelle_demande' %}" class="btn btn-secondary" style="padding: 12px 30px; border-radius: 12px; text-decoration: none; border: 1px solid #ddd; color: #4b5563; font-weight: 600;">Retour</a>
+                    <button type="submit" class="btn btn-primary" style="padding: 12px 40px; background: #2a61c1; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; font-size: 1rem;">Continuer vers les documents</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    {% include 'partials/footer.html' %} 
+</body>
+</html>

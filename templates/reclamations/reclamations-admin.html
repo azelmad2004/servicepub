@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Réclamations - ServicePub</title>
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body class="dashboard">
+    <!-- Navigation Admin -->
+    {% include 'partials/nav-admin.html' %}                   
+
+    <main class="admin-content">
+        <header class="admin-header">
+            <div class="header-left">
+                <h1>Réclamations Reçues</h1>
+                <p>Gérez les retours et les problèmes signalés par les citoyens.</p>
+            </div>
+            <div class="header-right">
+                <form method="GET">
+                    <select name="statut" class="filter-select" onchange="this.form.submit()">
+                        <option value="">Tous les statuts</option>
+                        {% for code, label in statuts %}
+                        <option value="{{ code }}" {% if statut_filtre == code %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+        </header>
+
+        <div class="reclamations-container">
+            {% if reclamation %}
+            <!-- Détails et Réponse (Agent) -->
+            <div class="reclamation-detail-view">
+                <div class="detail-header">
+                    <div>
+                        <h2>{{ reclamation.sujet }}</h2>
+                        <p>Ticket #{{ reclamation.numero_ticket }} — Par {{ reclamation.citoyen.user.get_full_name }}</p>
+                    </div>
+                    <div class="header-actions">
+                        <span class="status-badge {{ reclamation.statut }}">{{ reclamation.get_statut_display }}</span>
+                        <a href="{% url 'admin_reclamations' %}">&larr; Retour à la liste</a>
+                    </div>
+                </div>
+
+                <div class="messages-thread">
+                    <div class="messages-list">
+                        <!-- Message Initial -->
+                        <div class="message-item">
+                            <div class="message-content">
+                                <h4>Message Initial</h4>
+                                <p>{{ reclamation.description }}</p>
+                                {% if reclamation.piece_jointe %}
+                                <div class="attachment">
+                                    <a href="{{ reclamation.piece_jointe.url }}" target="_blank">[ Voir la pièce jointe ]</a>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        {% for msg in messages_list %}
+                        <div class="message-item {% if msg.auteur == request.user %}self{% endif %}">
+                            <div class="message-content">
+                                <p>{{ msg.contenu }}</p>
+                                {% if msg.piece_jointe %}
+                                <div class="attachment">
+                                    <a href="{{ msg.piece_jointe.url }}" target="_blank">[ Fichier joint ]</a>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="message-meta">
+                                {{ msg.auteur.get_full_name }} — {{ msg.date_envoi|timesince }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <form method="POST" action="{% url 'admin_repondre_reclamation' reclamation.id %}" enctype="multipart/form-data" class="reply-form">
+                        {% csrf_token %}
+                        <h3>Répondre au Citoyen</h3>
+                        
+                        <div class="form-group">
+                            <label>Message</label>
+                            {{ message_form.contenu }}
+                            {% if message_form.contenu.errors %}
+                            <p class="error">{{ message_form.contenu.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-actions">
+                            <div class="form-group">
+                                <label>Mettre à jour le Statut</label>
+                                <select name="statut">
+                                    {% for code, label in statuts %}
+                                    <option value="{{ code }}" {% if reclamation.statut == code %}selected{% endif %}>{{ label }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Envoyer la réponse</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <!-- Liste globale (Agent) -->
+            <div class="reclamations-grid">
+                {% for rec in reclamations %}
+                <div class="reclamation-card {{ rec.statut }}">
+                    <div class="card-top">
+                        <div class="card-header">
+                            <div>
+                                <h3>{{ rec.sujet }}</h3>
+                                <p>#{{ rec.numero_ticket }} — {{ rec.citoyen.user.get_full_name }}</p>
+                            </div>
+                            <span class="status-badge {{ rec.statut }}">{{ rec.get_statut_display }}</span>
+                        </div>
+                        <p>{{ rec.description|truncatewords:20 }}</p>
+                    </div>
+                    <a href="{% url 'admin_repondre_reclamation' rec.id %}" class="btn btn-primary">Consulter et Répondre</a>
+                </div>
+                {% empty %}
+                <div class="empty-state">
+                    <p>Aucune réclamation à traiter.</p>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    {% include 'partials/footer.html' %}
+</body>
+
+</html>

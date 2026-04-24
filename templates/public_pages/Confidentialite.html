@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Politique de confidentialité de ServicePub - Plateforme de numérisation de documents administratifs">
+    <meta name="keywords" content="documents administratifs, numérisation, administration, maroc, confidentialité, vie privée">
+
+    <title>Confidentialité - ServicePub</title>
+
+    <!-- Favicon -->
+        <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+
+
+
+    <!-- Style links -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!--    nav_section        -->
+       {% include 'partials/nav.html' %}                   
+
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-content">
+            <div class="paragraph-header">
+                <h1>Politique de Confidentialité</h1>
+                <div class="ligne_main">
+                    <div class="ligne"></div>
+                </div>
+                
+                <p>Découvrez comment ServicePub protège vos données personnelles <br>et respecte votre vie privée</p>
+            </div>
+        </div>
+    </header>
+
+
+
+        <div class="privacy-content">
+            <div class="privacy-block">
+                <h2>1. Collecte des Informations</h2>
+                <p>ServicePub collecte des informations lorsque vous :</p>
+                <ul>
+                    <li>Vous inscrivez sur notre site</li>
+                    <li>Vous connectez à votre compte</li>
+                    <li>Effectuez une transaction</li>
+                    <li>Participez à un concours</li>
+                    <li>Utilisez nos services</li>
+                </ul>
+                <p>Les informations collectées incluent votre nom, votre adresse e-mail, votre numéro de téléphone, et les documents que vous uploader sur notre plateforme.</p>
+            </div>
+
+            <div class="privacy-block color_dif">
+                <h2>2. Utilisation des Informations</h2>
+                <p>Toutes les informations que nous collectons auprès de vous peuvent être utilisées pour :</p>
+                <ul>
+                    <li>Personnaliser votre expérience et répondre à vos besoins individuels</li>
+                    <li>Fournir un contenu publicitaire personnalisé</li>
+                    <li>Améliorer notre site web</li>
+                    <li>Améliorer le service client et vos besoins de prise en charge</li>
+                    <li>Vous contacter par e-mail</li>
+                    <li>Administrer un concours, une promotion, ou une enquête</li>
+                </ul>
+            </div>
+
+            <div class="privacy-block">
+                <h2>3. Confidentialité des Documents</h2>
+                <p>Nous accordons une importance particulière à la confidentialité de vos documents administratifs :</p>
+                <ul>
+                    <li>Tous les documents sont stockés sur des serveurs sécurisés</li>
+                    <li>L'accès aux documents est strictement limité au personnel autorisé</li>
+                    <li>Les documents sont chiffrés durant leur transfert et leur stockage</li>
+                    <li>Nous conservons vos documents uniquement pendant la durée nécessaire</li>
+                </ul>
+            </div>
+
+            <div class="privacy-block color_dif">
+                <h2>4. Divulgation à des Tiers</h2>
+                <p>Nous ne vendons, n'échangeons et ne transférons pas vos informations personnelles identifiables à des tiers. Cela ne inclut pas les tierces parties de confiance qui nous aident à exploiter notre site web ou à mener nos affaires, tant que
+                    ces parties conviennent de garder ces informations confidentielles.</p>
+                <p>Nous pensons qu'il est nécessaire de partager des informations afin d'enquêter, de prévenir ou de prendre des mesures concernant des activités illégales, fraudes présumées, situations impliquant des menaces potentielles à la sécurité physique
+                    de toute personne, violations de nos conditions d'utilisation, ou quand la loi nous y contraint.</p>
+            </div>
+
+            <div class="privacy-block">
+                <h2>5. Protection des Informations</h2>
+                <p>Nous mettons en œuvre une variété de mesures de sécurité pour préserver la sécurité de vos informations personnelles. Nous utilisons un cryptage de pointe pour protéger les informations sensibles transmises en ligne. Nous protégeons également
+                    vos informations hors ligne. Seuls les employés qui ont besoin d'effectuer un travail spécifique (par exemple, la facturation ou le service client) ont accès aux informations personnelles identifiables. Les ordinateurs et serveurs
+                    utilisés pour stocker des informations personnelles identifiables sont conservés dans un environnement sécurisé.</p>
+            </div>
+
+            <div class="privacy-block color_dif">
+                <h2>6. Consentement</h2>
+                <p>En utilisant notre site, vous consentez à notre politique de confidentialité.</p>
+            </div>
+        </div>
+    </div>
+
+    <!--    footer_section        -->
+       {% include 'partials/footer.html' %} 
+       {% include 'partials/chatbot.html' %} 
+
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

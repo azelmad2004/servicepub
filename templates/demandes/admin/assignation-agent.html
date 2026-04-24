@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignation Agent - Admin</title>
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    {% include 'partials/nav-admin.html' %}
+    <main class="admin-content">
+        <header class="admin-header">
+            <div class="header-left">
+                <h1>Assignation d'Agent</h1>
+                <p>Demande #CMD-2024-0015 - Acte de naissance - Karim Ahmed</p>
+            </div>
+        </header>
+        <div class="assignation-container">
+            <!-- Info demande -->
+            <div class="info-card">
+                <h3>Détails de la demande</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Service:</label>
+                        <span>Acte de naissance Renouvellement</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Citoyen:</label>
+                        <span>Karim Ahmed (Casablanca)</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Urgence:</label>
+                        <span class="status-badge urgent">Urgent</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Échéance:</label>
+                        <span class="text-urgent">22/08/2024</span>
+                    </div>
+                </div>
+            </div>
+<!-- Sélection agent -->
+ <div class="selection-card">
+ <h3><i class="fas fa-user-shield"></i> Sélectionner un 
+Agent</h3>
+ <div class="filter-agents">
+ <input type="text" placeholder="Rechercher un 
+agent..." class="search-input">
+ <select class="filter-select">
+ <option>Tous les services</option>
+ <option>État Civil</option>
+ <option>Acte de naissance</option>
+ <option>CNI</option>
+ </select>
+ </div>
+ <div class="agents-list">
+ <div class="agent-card selected">
+ <div class="agent-info">
+ <img src="{% static 'images/' %}agent1.jpg" 
+alt="Agent">
+ demandes en cours
+ </span>
+ alt="Agent">
+ <div class="agent-details">
+ <h4>Mohamed Ali</h4>
+ <p>Spécialité: Acte de naissance</p>
+ <span class="agent-stats">
+ <i class="fas fa-tasks"></i> 12 
+</span>
+ </div>
+ </div>
+ <div class="agent-availability">
+ <span class="status-indicator online">
+ <span>Disponible</span>
+ </div>
+ <button class="btn btn-primary btn-sm">
+ <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+  <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+</svg> Assigné
+ </button>
+ </div>
+ <div class="agent-card">
+ <div class="agent-info">
+ <img src="{% static 'images/' %}agent2.jpg" 
+<div class="agent-details">
+ <h4>Fatima Zahra</h4>
+ <p>Spécialité: État Civil</p>
+ <span class="agent-stats">
+ <i class="fas fa-tasks"></i> 8 
+demandes en cours
+                                </span>
+                            </div>
+                        </div>
+                        <div class="agent-availability">
+                            <span class="status-indicator online">
+ </span>
+                            <span>Disponible</span>
+                        </div>
+                        <button class="btn btn-secondary btn-sm">
+                            <i class="fas fa-user-plus"></i> Assigner
+                        </button>
+                    </div>
+                    <div class="agent-card">
+                        <div class="agent-info">
+                            <img src="{% static 'images/' %}agent3.jpg" 
+alt="Agent">
+                            <div class="agent-details">
+                                <h4>Hassan Amine</h4>
+                                <p>Spécialité: Acte de naissance</p>
+                                <span class="agent-stats">
+                                    <i class="fas fa-tasks"></i> 18 
+demandes en cours
+                                </span>
+                            </div>
+                        </div>
+                        <div class="agent-availability">
+                            <span class="status-indicator busy"></span>
+                            <span>Occupé</span>
+                        </div>
+                        <button class="btn btn-secondary btn-sm" 
+disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+  <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
+  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
+</svg></i> Occupé
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Actions -->
+            <div class="action-panel">
+                <h3>Confirmation d'Assignation</h3>
+                <div class="confirmation-details">
+                    <p>Vous êtes sur le point d'assigner la demande 
+<strong>#CMD-2024-0015</strong> à:</p>
+                    <div class="selected-agent">
+                        <img src="{% static 'images/' %}agent1.jpg" 
+alt="Agent">
+                        <div>
+                            <h4>Mohamed Ali</h4>
+                            <p>Agent spécialisé Acte de naissance</p>
+</div>
+ </div>
+ </div>
+ <div class="action-buttons">
+ <a href="detail-demande-admin.htm" class="btn btn
+secondary">
+ l'assignation
+ <i class="fas fa-times"></i> Annuler
+ </a>
+ <button class="btn btn-primary">
+ <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+  <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+</svg> Confirmer 
+</button>
+ </div>
+ </div>
+    </main>
+
+    <!--    footer_section        -->
+    {% include 'partials/footer.html' %}
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Connexion à ServicePub - Plateforme de numérisation de documents administratifs">
+    <meta name="keywords" content="connexion, login, servicepub, authentification">
+
+    <title>Connexion - ServicePub</title>
+
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+    <!--    nav_section        -->
+    {% include 'partials/nav.html' %}
+
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <h2>Connexion à votre compte</h2>
+                <p>Accédez à votre espace personnel</p>
+            </div>
+            
+            {% if messages %}
+            <div style="margin-bottom:15px;">
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" style="padding:10px 15px; border-radius: 12px; background:{% if 'error' in message.tags %}#fee2e2{% else %}#dcfce7{% endif %}; color:{% if 'error' in message.tags %}#dc2626{% else %}#16a34a{% endif %}; border:1px solid currentColor; margin-bottom:5px;">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="auth-tabs">
+                <a href="{% url 'connexion_citoyen' %}" class="auth-tab {% if active_tab == 'citoyen' %}active{% endif %}">Citoyen</a>
+                <a href="{% url 'connexion_admin' %}" class="auth-tab {% if active_tab == 'administration' %}active{% endif %}">Agent</a>
+            </div>
+
+            {% if active_tab == 'citoyen' %}
+            <form class="auth-form active" id="citoyen-form" method="POST" action="{% url 'connexion_citoyen' %}">
+                {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                <div class="alert alert-error" style="padding:10px; background:#fee2e2; color:#dc2626; border:1px solid #fecaca; border-radius: 12px; margin-bottom:15px; font-size:0.9em;">
+                    {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+                </div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="id_username">Email</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.username.errors.0 }}</span>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="id_password">Mot de passe</label>
+                    <div style="position:relative;">
+                        {{ form.password }}
+                        <span class="toggle-password" onclick="togglePassword('id_password')" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer; color:#666;">👁️</span>
+                    </div>
+                    {% if form.password.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.password.errors.0 }}</span>{% endif %}
+                </div>
+                <div class="form-options">
+                    <label class="checkbox-container">
+                        {{ form.remember_me }}
+                        <span class="checkmark"></span>
+                        Se souvenir de moi
+                    </label>
+                    <a href="{% url 'mot_de_passe_oublie' %}" class="forgot-password">Mot de passe oublié?</a>
+                </div>
+                <button type="submit" class="auth-btn">Se connecter</button>
+            </form>
+            {% else %}
+            <form class="auth-form active" id="administration-form" method="POST" action="{% url 'connexion_admin' %}">
+                {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                <div class="alert alert-error" style="padding:10px; background:#fee2e2; color:#dc2626; border:1px solid #fecaca; border-radius: 12px; margin-bottom:15px; font-size:0.9em;">
+                    {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+                </div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="id_username">Email professionnel</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.username.errors.0 }}</span>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="id_password">Mot de passe</label>
+                    <div style="position:relative;">
+                        {{ form.password }}
+                        <span class="toggle-password" onclick="togglePassword('id_password')" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer; color:#666;">👁️</span>
+                    </div>
+                    {% if form.password.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.password.errors.0 }}</span>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="id_code_acces">Code d'accès sécurisé</label>
+                    {{ form.code_acces }}
+                    {% if form.code_acces.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.code_acces.errors.0 }}</span>{% endif %}
+                </div>
+                <div class="form-options">
+                    <label class="checkbox-container">
+                        <input type="checkbox" name="remember_me" id="remember-admin">
+                        <span class="checkmark"></span>
+                        Se souvenir de moi
+                    </label>
+                    <a href="{% url 'mot_de_passe_oublie' %}" class="forgot-password">Mot de passe oublié?</a>
+                </div>
+                <button type="submit" class="auth-btn">Se connecter en tant qu'Agent</button>
+            </form>
+            {% endif %}
+
+            <div class="auth-footer" style="margin-top: 20px; text-align: center;">
+                <p>Vous n'avez pas de compte? <a href="{% url 'inscription_citoyen' %}">Créer un compte</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!--    footer_section        -->
+    {% include 'partials/footer.html' %}
+
+    <script>
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+            } else {
+                input.type = 'password';
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Services - Admin</title>
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    {% include 'partials/nav-admin.html' %}
+    <main class="admin-content">
+        <header class="admin-header">
+            <div class="header-left">
+                <h1>Gestion des Services</h1>
+                <p>{{ services.count }} services actifs</p>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-primary" 
+onclick="openModal('add-service-modal')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                  </svg> Nouveau Service
+                </button>
+            </div>
+        </header>
+        <div class="gestion-services-container">
+            <!-- Catégories (Hardcoded as requested to keep structure) -->
+            <div class="categories-sidebar">
+                <h3>Catégories</h3>
+                <div class="category-list">
+                    <div class="category-item active">
+                        <i class="fas fa-id-card"></i>
+                        <span>État Civil</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Liste des services -->
+            <div class="services-list">
+                {% for service in services %}
+                <div class="service-card">
+                    <div class="service-header">
+                        <h4>{{ service.nom }}</h4>
+                        <span class="status-badge {% if service.actif %}active{% else %}inactive{% endif %}">{% if service.actif %}Actif{% else %}Inactif{% endif %}</span>
+                    </div>
+                    <div class="service-body">
+                        <p class="service-description">
+                            {{ service.description }}
+                        </p>
+                        <div class="service-details">
+                            <div class="detail">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+  <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
+  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
+</svg>
+                                <span>Délai: {{ service.delai_traitement }}h</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-money-bill"></i>
+                                <span>{{ service.tarif }} DH</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-actions">
+                        <a href="{% url 'admin_toggle_service' service.id %}" class="btn-icon" title="{% if service.actif %}Désactiver{% else %}Activer{% endif %}">
+                            <i class="fas {% if service.actif %}fa-ban{% else %}fa-check{% endif %}"></i>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- Modal Ajout Service -->
+<div id="add-service-modal" class="modal">
+ <div class="modal-content large">
+ <h3>Ajouter un Nouveau Service</h3>
+ <form class="service-form">
+ <div class="form-group">
+ <label>Nom du service *</label>
+ <input type="text" required>
+ </div>
+ <div class="form-actions">
+ <button type="button" class="btn btn-secondary" 
+onclick="closeModal('add-service-modal')">
+ Annuler
+ </button>
+ <button type="submit" class="btn btn-primary">
+ <i class="fas fa-save"></i> Créer le 
+service
+ </button>
+ </div>
+ </form>
+ </div>
+ </div>
+</main>
+    {% include 'partials/footer.html' %}
+    <script>
+        function openModal(id) {
+            document.getElementById(id).style.display = 'block';
+        }
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+    </script>
+</body>
+</html>

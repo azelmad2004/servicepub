@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Inscription à ServicePub - Plateforme de numérisation de documents administratifs">
+    <meta name="keywords" content="inscription, register, servicepub, créer compte">
+
+    <title>Inscription - ServicePub</title>
+
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+    <!--    nav_section        -->
+    {% include 'partials/nav.html' %}
+
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <h2>Créer un compte</h2>
+                <p>Rejoignez la communauté ServicePub</p>
+            </div>
+            
+            {% if messages %}
+            <div style="margin-bottom:15px;">
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" style="padding:10px 15px; border-radius: 12px; background:{% if 'error' in message.tags %}#fee2e2{% else %}#dcfce7{% endif %}; color:{% if 'error' in message.tags %}#dc2626{% else %}#16a34a{% endif %}; border:1px solid currentColor; margin-bottom:5px;">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="auth-tabs">
+                <a href="{% url 'inscription_citoyen' %}" class="auth-tab {% if active_tab == 'citoyen' %}active{% endif %}">Citoyen</a>
+                <a href="{% url 'inscription_admin' %}" class="auth-tab {% if active_tab == 'administration' %}active{% endif %}">Agent</a>
+            </div>
+
+            {% if active_tab == 'citoyen' %}
+            <form class="auth-form active" id="inscription-citoyen-form" method="POST" action="{% url 'inscription_citoyen' %}">
+                {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                <div class="alert alert-error" style="padding:10px; background:#fee2e2; color:#dc2626; border:1px solid #fecaca; border-radius: 12px; margin-bottom:15px; font-size:0.9em;">
+                    {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+                </div>
+                {% endif %}
+
+                <div class="form-row" style="display: flex; gap: 15px; margin-bottom: 15px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="id_prenom">Prénom</label>
+                        {{ form.prenom }}
+                        {% if form.prenom.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.prenom.errors.0 }}</span>{% endif %}
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="id_nom">Nom</label>
+                        {{ form.nom }}
+                        {% if form.nom.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.nom.errors.0 }}</span>{% endif %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="id_email">Email</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.email.errors.0 }}</span>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="id_CINE">Numéro CINE</label>
+                    {{ form.CINE }}
+                    {% if form.CINE.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.CINE.errors.0 }}</span>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="id_telephone">Téléphone</label>
+                    {{ form.telephone }}
+                    {% if form.telephone.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.telephone.errors.0 }}</span>{% endif %}
+                </div>
+                <div class="form-row" style="display: flex; gap: 15px; margin-bottom: 15px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="id_date_naissance">Date de naissance</label>
+                        {{ form.date_naissance }}
+                        {% if form.date_naissance.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.date_naissance.errors.0 }}</span>{% endif %}
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="id_lieu_naissance">Lieu de naissance</label>
+                        {{ form.lieu_naissance }}
+                        {% if form.lieu_naissance.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.lieu_naissance.errors.0 }}</span>{% endif %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="id_adresse">Adresse</label>
+                    {{ form.adresse }}
+                    {% if form.adresse.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.adresse.errors.0 }}</span>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="id_password1">Mot de passe</label>
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.password1.errors.0 }}</span>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="id_password2">Confirmer le mot de passe</label>
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.password2.errors.0 }}</span>{% endif %}
+                </div>
+                <div class="form-options">
+                    <label class="checkbox-container">
+                        {{ form.accepter_cgu }}
+                        <span class="checkmark"></span>
+                        J'accepte les <a href="{% url 'cgu' %}">conditions d'utilisation</a>
+                    </label>
+                    {% if form.accepter_cgu.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em; display:block;">{{ form.accepter_cgu.errors.0 }}</span>{% endif %}
+                </div>
+                <button type="submit" class="auth-btn">Créer mon compte</button>
+            </form>
+            {% else %}
+            <form class="auth-form active" id="inscription-administration-form" method="POST" action="{% url 'inscription_admin' %}">
+                {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                <div class="alert alert-error" style="padding:10px; background:#fee2e2; color:#dc2626; border:1px solid #fecaca; border-radius: 12px; margin-bottom:15px; font-size:0.9em;">
+                    {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+                </div>
+                {% endif %}
+
+                <div class="form-row" style="display: flex; gap: 15px; margin-bottom: 15px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="id_prenom">Prénom</label>
+                        {{ form.prenom }}
+                        {% if form.prenom.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.prenom.errors.0 }}</span>{% endif %}
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="id_nom">Nom</label>
+                        {{ form.nom }}
+                        {% if form.nom.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.nom.errors.0 }}</span>{% endif %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="id_email">Email professionnel</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.email.errors.0 }}</span>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="id_telephone">Téléphone</label>
+                    {{ form.telephone }}
+                    {% if form.telephone.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.telephone.errors.0 }}</span>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="id_administration">Nom de l'administration</label>
+                    {{ form.administration }}
+                    {% if form.administration.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.administration.errors.0 }}</span>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="id_code_agrement">Code d'agrément</label>
+                    {{ form.code_agrement }}
+                    {% if form.code_agrement.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.code_agrement.errors.0 }}</span>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="id_poste">Poste / Fonction</label>
+                    {{ form.poste }}
+                    {% if form.poste.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.poste.errors.0 }}</span>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="id_password1">Mot de passe</label>
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.password1.errors.0 }}</span>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="id_password2">Confirmer le mot de passe</label>
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}<span class="error-text" style="color:#dc2626; font-size:0.8em;">{{ form.password2.errors.0 }}</span>{% endif %}
+                </div>
+                <button type="submit" class="auth-btn">Créer mon compte Agent</button>
+                <small class="admin-note" style="display: block; margin-top: 10px; color: #666; font-size: 0.85em;">Votre compte Agent sera activé immédiatement pour les tests.</small>
+            </form>
+            {% endif %}
+
+            <div class="auth-footer" style="margin-top: 20px; text-align: center;">
+                <p>Vous avez déjà un compte? <a href="{% url 'connexion_citoyen' %}">Se connecter</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!--    footer_section        -->
+    {% include 'partials/footer.html' %}
+
+    <script>
+        // Password visibility toggle helper if needed
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+            } else {
+                input.type = 'password';
+            }
+        }
+    </script>
+</body>
+
+</html>

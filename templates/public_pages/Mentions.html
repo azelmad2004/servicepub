@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial
+scale=1.0">
+    <meta name="description" content="Mentions légales de ServicePub">
+    <meta name="keywords" content="mentions légales, servicepub, 
+informations légales">
+
+    <title>Mentions Légales - ServicePub</title>
+
+        <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+    <!--    nav_section        -->
+    {% include 'partials/nav.html' %}
+    <header class="header">
+        <div class="header-content">
+            <div class="paragraph-header">
+                <h1>Mentions Légales</h1>
+                <div class="ligne_main">
+                    <div class="ligne"></div>
+                </div>
+                <p>Informations légales concernant l'éditeur et l'hébergeur de la plateforme ServicePub</p>
+            </div>
+        </div>
+    </header>
+    <div class="legal_section">
+        <div class="legal-content">
+            <div class="legal-block">
+                <h2>Éditeur de la Plateforme</h2>
+                <p><strong>ServicePub</strong><br> Société à responsabilité limitée au capital de 500 000 DH
+                    <br> Immatriculée au Registre du Commerce et des Sociétés de Casablanca sous le numéro 123456<br> Numéro d'identification fiscale : 987654321<br> Siège social : 123 Avenue Mohammed V, Casablanca, Maroc
+                    <br> Téléphone : +212 5 22 12 34 56<br> Email : contact@ServicePub.ma</p>
+            </div>
+            <div class="legal-block color_dif">
+                <h2>Directeur de la Publication</h2>
+                <p>M. Mohamed AzelDH<br> En qualité de Directeur Général de ServicePub</p>
+            </div>
+            <div class="legal-block">
+                <h2>Hébergeur</h2>
+                <p><strong>Maroc Hosting Solutions</strong><br> Société à responsabilité limitée<br> Immatriculée au Registre du Commerce et des Sociétés de Rabat sous le numéro 654321<br> Siège social : 456 Avenue Hassan II, Rabat, Maroc<br> Téléphone :
+                    +212 5 37 65 43 21<br> Site web : www.marochosting.ma</p>
+            </div>
+            <div class="legal-block color_dif">
+                <h2>Propriété Intellectuelle</h2>
+                <p>L'ensemble des éléments constituant le site ServicePub (textes, images, vidéos, logos, marques, etc.) sont protégés par le droit de la propriété intellectuelle. Toute reproduction, représentation, modification, publication, adaptation
+                    totale ou partielle des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite sans autorisation préalable de ServicePub.</p>
+            </div>
+            <div class="legal-block">
+                <h2>Données Personnelles</h2>
+                <p>Conformément à la loi 09-08 promulguée par le Dahir 1-09-15 du 18 février 2009 relative à la protection des personnes physiques à l'égard du traitement des données à caractère personnel, vous disposez d'un droit d'accès, de rectification,
+                    de modification et de suppression des données qui vous concernent.</p>
+                <p>Vous pouvez exercer ce droit en nous contactant à l'adresse : privacy@ServicePub.ma</p>
+            </div>
+            <div class="legal-block color_dif">
+                <h2>Cookies</h2>
+                <p>Le site ServicePub utilise des cookies pour améliorer l'expérience utilisateur et pour réaliser des statistiques de visites. En naviguant sur notre site, vous acceptez l'utilisation des cookies.
+                </p>
+            </div>
+            <div class="legal-block">
+                <h2>Limitation de Responsabilité</h2>
+                <p>ServicePub ne peut être tenu responsable des dommages directs ou indirects qui pourraient résulter de l'accès ou de l'utilisation du site, y compris l'inaccessibilité, les pertes de données, détériorations, destructions ou virus qui pourraient
+                    affecter l'équipement informatique de l'utilisateur.</p>
+            </div>
+            <div class="legal-block color_dif">
+                <h2>Droit Applicable</h2>
+                <p>Les présentes mentions légales sont régies par le droit marocain. En cas de litige, les tribunaux marocains seront seuls compétents.
+                </p>
+            </div>
+        </div>
+    </div>
+    <!--    footer_section        -->
+       {% include 'partials/footer.html' %} 
+       {% include 'partials/chatbot.html' %} 
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

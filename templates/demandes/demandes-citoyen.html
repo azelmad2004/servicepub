@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Demandes - ServicePub</title>
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="dashboard">
+    <!-- Navigation Citoyen -->
+    {% include 'partials/nav-citoyen.html' %}
+
+    <main class="dashboard-content">
+        <div class="dashboard-header">
+            <h1>Mes Demandes Administratives</h1>
+            <p>Historique complet de toutes vos démarches</p>
+        </div>
+
+        <!-- Filtres et recherche -->
+        <div class="filters-section" style="margin-bottom: 20px; display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap;">
+            <div class="search-box" style="flex: 1; min-width: 250px; position: relative;">
+                <input type="text" placeholder="Rechercher une demande..." style="width: 100%; padding: 10px 15px; border: 1px solid #ddd; border-radius: 12px;">
+            </div>
+            <div class="filter-group" style="display: flex; gap: 10px;">
+                <select class="filter-select" style="padding: 10px; border: 1px solid #ddd; border-radius: 12px;">
+                    <option>Tous les statuts</option>
+                    <option>En attente</option>
+                    <option>En traitement</option>
+                    <option>Terminée</option>
+                    <option>Rejetée</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Liste des demandes -->
+        <div class="requests-container">
+            {% for demande in demandes %}
+            <div class="request-card" style="background: white; border-radius: 12px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                <div class="request-info-main" style="flex: 1; min-width: 200px;">
+                    <h3 style="margin: 0 0 5px 0;">{{ demande.service.nom }}</h3>
+                    <p class="request-ref" style="color: #666; margin: 0; font-size: 0.9em;">#{{ demande.reference }}</p>
+                    <div class="request-meta" style="margin-top: 10px; font-size: 0.85em; color: #888;">
+                        <span>Déposée le: {{ demande.date_creation|date:'d/m/Y' }}</span>
+                        {% if demande.date_echeance %}
+                        <span style="margin-left: 15px;">Échéance: {{ demande.date_echeance|date:'d/m/Y' }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="request-status-side" style="text-align: right;">
+                    <span class="status-badge {{ demande.statut }}" style="display: inline-block; padding: 5px 12px; border-radius: 12px; font-size: 0.85em; margin-bottom: 10px;">{{ demande.get_statut_display }}</span>
+                    <div class="request-actions" style="display: flex; gap: 10px; justify-content: flex-end;">
+                        <a href="{% url 'detail_demande' demande.id %}" class="btn btn-secondary btn-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/><path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                            </svg> Détails
+                        </a>
+                        {% if demande.statut == 'en_attente_docs' %}
+                        <a href="{% url 'upload_documents' demande.id %}" class="btn btn-warning btn-sm">Compléter</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div style="padding:50px; text-align:center; background: white; border-radius: 12px;">
+                <p>Aucune demande trouvée. <a href="{% url 'nouvelle_demande' %}" style="color: #2a61c1; font-weight: bold;">Créer votre première demande</a></p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <div class="pagination" style="margin-top: 20px; display: flex; justify-content: center; gap: 5px;">
+            <!-- Simple pagination -->
+        </div>
+        {% endif %}
+    </main>
+
+    <!--    footer_section        -->
+    {% include 'partials/footer.html' %}
+</body>
+</html>

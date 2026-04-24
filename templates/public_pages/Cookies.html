@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial
+scale=1.0">
+    <meta name="description" content="Politique des Cookies de 
+ServicePub">
+    <meta name="keywords" content="cookies, politique cookies, 
+servicepub, vie privée">
+
+    <title>Politique des Cookies - ServicePub</title>
+
+        <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+    <!--    nav_section        -->
+       {% include 'partials/nav.html' %}                   
+    <header class="header">
+        <div class="header-content">
+            <div class="paragraph-header">
+                <h1>Politique des Cookies</h1>
+                <div class="ligne_main">
+                    <div class="ligne"></div>
+                </div>
+                <p>Informations sur l'utilisation des cookies sur la plateforme ServicePub</p>
+            </div>
+        </div>
+    </header>
+    <div class="legal_section">
+
+        <div class="legal-content">
+            <div class="legal-block">
+                <h2>Qu'est-ce qu'un cookie ?</h2>
+                <p>Un cookie est un petit fichier texte déposé sur votre terminal (ordinateur, tablette, smartphone) lors de la visite d'un site internet. Les cookies permettent de collecter des informations relatives à votre navigation et sont utilisés
+                    pour vous offrir une expérience utilisateur optimale.</p>
+            </div>
+            <div class="legal-block color_dif">
+                <h2>Types de cookies utilisés</h2>
+                <p>ServicePub utilise différents types de cookies :</p>
+                <h3>Cookies indispensables</h3>
+                <p>Ces cookies sont nécessaires au fonctionnement de la plateforme. Ils vous permettent d'utiliser les fonctionnalités principales de ServicePub (connexion à votre compte, accès sécurisé, etc.). Sans ces cookies, vous ne pourriez pas utiliser
+                    notre service normalement.
+                </p>
+                <h3>Cookies de performance et d'analyse</h3>
+                <p>Ces cookies nous permettent de connaître l'utilisation et les performances de notre plateforme et d'en améliorer le fonctionnement (par exemple, les pages les plus visitées, ...).</p>
+                <h3>Cookies de fonctionnalité</h3>
+                <p>Ces cookies permettent d'adapter la présentation de notre plateforme à vos préférences d'affichage (langue utilisée, résolution d'affichage, etc.).</p>
+                <h3>Cookies de ciblage</h3>
+                <p>Ces cookies permettent de vous proposer des contenus et publicités adaptés à vos centres d'intérêt.</p>
+            </div>
+            <div class="legal-block">
+                <h2>Durée de conservation des cookies</h2>
+                <p>La durée de conservation des cookies est de 13 mois maximum après leur premier dépôt dans votre terminal, conformément aux recommandations de la Commission Nationale de contrôle de la protection des Données à Caractère Personnel (CNDP)
+                    du Maroc.</p>
+            </div>
+            <div class="legal-block color_dif">
+                <h2>Vos choix concernant les cookies</h2>
+                <p>Vous pouvez à tout moment choisir de désactiver les cookies. Votre navigateur peut également être paramétré pour vous signaler les cookies qui sont déposés dans votre terminal et vous demander de les accepter ou non.</p>
+                <p>Vous pouvez accepter ou refuser les cookies au cas par cas ou bien les refuser systématiquement. Nous vous rappelons que le paramétrage est susceptible de modifier vos conditions d'accès à nos services nécessitant l'utilisation de cookies.</p>
+                <h3>Pour configurer votre navigateur :</h3>
+                <ul>
+                    <li><strong>Google Chrome</strong> : Menu > Paramètres > Confidentialité et sécurité > Cookies et autres données des sites</li>
+                    <li><strong>Mozilla Firefox</strong> : Menu > Options > Vie privée et sécurité > Cookies et données de site</li>
+                    <li><strong>Safari</strong> : Préférences > Confidentialité > Cookies et données de site web</li>
+                    <li><strong>Internet Explorer</strong> : Menu > Options Internet > Confidentialité > Paramètres</li>
+                    <li><strong>Microsoft Edge</strong> : Menu > Paramètres > Confidentialité et sécurité > Cookies</li>
+                </ul>
+            </div>
+            <div class="legal-block">
+                <h2>Cookies tiers</h2>
+                <p>Des cookies tiers sont susceptibles être déposés sur votre terminal via les pages de notre plateforme. L'émission et l'utilisation de ces cookies par des tiers sont soumises aux politiques de protection de la vie privée de ces tiers.</p>
+            </div>
+            <div class="legal-block color_dif">
+                <h2>Consentement</h2>
+                <p>Le dépôt de cookies de performance, de fonctionnalité et de ciblage est subordonné à votre consentement. Vous pouvez à tout moment revenir sur votre consentement en utilisant les moyens décrits ci-dessus.</p>
+                <p>Lorsque vous accédez à notre site, un bandeau cookies s'affiche pour recueillir votre consentement. Si vous continuez votre navigation sans paramétrer les cookies, cela vaut acceptation du dépôt des cookies sur votre terminal.</p>
+            </div>
+        </div>
+    </div>
+    <!--    footer_section        -->
+       {% include 'partials/footer.html' %} 
+       {% include 'partials/chatbot.html' %} 
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>
