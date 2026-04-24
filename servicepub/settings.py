@@ -9,6 +9,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# Security settings for Railway production
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.up.railway.app',
+    'https://servicepub.up.railway.app',
+]
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
